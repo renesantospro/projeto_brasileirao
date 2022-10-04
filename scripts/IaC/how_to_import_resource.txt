@@ -1,0 +1,37 @@
+## to import existing configuration
+
+create main.tf in a new directory with:
+
+"""
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_s3_bucket" "a" {
+  bucket = "123milhas-data-lake-documentation"
+}
+"""
+
+in this new directory:
+$ terraform init
+$ terraform import aws_instance.name <name_id>
+
+example:
+$ terraform import aws_s3_bucket.a 123milhas-data-lake-documentation
+
+to verify that the tfstate is mirroring current configuration:
+$ terraform plan
+
+then, to save current config:
+$ terraform show -no-color > main.tf

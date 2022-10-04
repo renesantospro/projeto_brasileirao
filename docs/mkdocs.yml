@@ -1,0 +1,93 @@
+# Project information
+site_name: Project Documentation
+site_url: http://mkdocs-deployment-testing-with-github.s3-website-us-east-1.amazonaws.com/
+site_author: renesantospro
+site_description: >-
+  Aqui você encontrará um modelo de estrutura e de conteúdo de documentação sobre toda a Engenharia de Dados que pode ser desenvolvida para um projeto.
+
+# Repository
+# repo_name: mkdocs-deployment-testing-with-github
+# repo_url: https://github.com/renesantospro/mkdocs_deployment_testing_with_github.git
+# edit_uri: ""
+
+# Copyright
+copyright: Renê Santos - Engenheiro de Dados
+
+# Extensions
+markdown_extensions:
+    - toc: {
+      permalink: "#",
+      baselevel: 2, # Nível básico dos cabeçalhos
+      separator: "_"
+    }
+    - pymdownx.highlight
+    - pymdownx.superfences
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - tables
+    - md_in_html
+
+theme:
+  name: mkdocs
+
+# Plugins
+plugins: 
+  - search: {}
+  
+  - mkdocstrings: {
+    handlers: {
+      python: {
+        selection: {
+          docstring_style: google
+        }
+      }
+    }
+
+    # watch:
+      # - scripts ## para procurar por um diretorio especificamente mapeado e diferente da estrutura default do MkDocs
+  }
+
+  - encryptcontent: {
+    global_password: 'mkdocs',
+    # use_secret: 'ENCRYPTCONTENT_PASSWORD', <- password as environment variable instead of specifying a global password
+    # title_prefix: '',
+    summary: '',
+    encryption_info_message: 'Essa página contém conteúdo protegido.',
+    placeholder: 'Insira a senha "mkdocs" neste campo e pressione "Entrar"',
+    decryption_failure_message: 'Senha incorreta! Tente digitar "mkdocs" novamente.',
+    password_button: True,
+    password_button_text: 'Entrar', ## Botão pra entrar
+    remember_password: True,
+    default_expire_dalay: 1, # <-- Default expire delay in hours (optional)
+  }
+
+
+# Page tree
+nav:
+    - Home:
+        - index.md
+
+        - content/engenharia/guia_como_ler_escrever.md
+    
+    - Engenharia: 
+        - content/engenharia/Introdução do Projeto.md
+        
+        - content/engenharia/arquitetura.md
+
+        - Dados:
+            - Projeto X:
+                - content/engenharia/dados_ingestao.md
+
+        - Pipelines: 
+            - Projeto X:
+                - content/engenharia/pipeline_ingestao.md
+                            
+        - CI/CD:
+            - content/engenharia/ci_cd.md
+
+        - Tecnologias:
+            - content/engenharia/tecnologias.md
+
+        - Infraestrutura:
+            - content/engenharia/infraestrutura.md
+            
