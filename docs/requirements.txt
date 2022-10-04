@@ -1,0 +1,6 @@
+mkdocs
+mkdocstrings
+mkdocs-material
+mkdocs-encryptcontent-plugin
+Pygments>=2.12
+MarkupSafe>=2.0
