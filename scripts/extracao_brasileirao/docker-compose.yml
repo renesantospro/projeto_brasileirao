@@ -1,7 +1,7 @@
 version: '1'
 
 services:
-  extracao_brasileirao:
+  feature:
     container_name: extracao_brasileirao
     env_file:
       - .env

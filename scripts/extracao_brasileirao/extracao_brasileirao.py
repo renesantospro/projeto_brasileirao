@@ -188,21 +188,26 @@ def main():
 
 # %%
 # Run script ------------------------------------------------------------------------------------- #
-try:
-    if __name__ == "__main__":
-        logging.info(f"STARTING Script !!!")
-        start_time = time()
-        main()
-        logging.info("--- %s seconds ---" % round(time() - start_time, 1))
-        logging.info(f"Execution ended successfully!\n\n\n")
+def handler(event, context):
+    try:
+        if __name__ == "__main__":
+            logging.info(f"STARTING Script !!!")
+            start_time = time()
+            main()
+            logging.info("--- %s seconds ---" % round(time() - start_time, 1))
+            logging.info(f"Execution ended successfully!\n\n\n")
 
+            print("--- %s seconds ---" % round(time() - start_time, 1))
+            
+            s3 = client('s3', aws_access_key_id=key_id, aws_secret_access_key=secret_key)
+            s3.upload_file(log_file_name, destination_bucket_name, log_path)
+            s3.close()
+
+    except Exception as e:
+        logging.error(f"{e}")
         print("--- %s seconds ---" % round(time() - start_time, 1))
-        
-        s3 = client('s3', aws_access_key_id=key_id, aws_secret_access_key=secret_key)
-        s3.upload_file(log_file_name, destination_bucket_name, log_path)
-        s3.close()
+        raise print(f"Erro!\n{e}")
+    
+    return 'Ok!'
 
-except Exception as e:
-    logging.error(f"{e}")
-    print("--- %s seconds ---" % round(time() - start_time, 1))
-    raise print(f"Erro!\n{e}")
+# handler()
