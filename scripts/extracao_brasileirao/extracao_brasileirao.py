@@ -159,7 +159,7 @@ def main():
                 soup.find_all(attrs={"class": "icons pull-right"})[0].a.get("href")
             )
 
-        for i in range(0, 2, 1): # len(sumula_list)
+        for i in range(0, len(sumula_list), 1): # 
             file_name = sumula_list[i].split("/")
             file_name = f"{file_name[-2]}_{file_name[-3]}_brasileirao_serie_a_jogo_{file_name[-1][3:]}.pdf"
 
@@ -188,26 +188,21 @@ def main():
 
 # %%
 # Run script ------------------------------------------------------------------------------------- #
-def handler(event, context):
-    try:
-        if __name__ == "__main__":
-            logging.info(f"STARTING Script !!!")
-            start_time = time()
-            main()
-            logging.info("--- %s seconds ---" % round(time() - start_time, 1))
-            logging.info(f"Execution ended successfully!\n\n\n")
+try:
+    if __name__ == "__main__":
+        logging.info(f"STARTING Script !!!")
+        start_time = time()
+        main()
+        logging.info("--- %s seconds ---" % round(time() - start_time, 1))
+        logging.info(f"Execution ended successfully!\n\n\n")
 
-            print("--- %s seconds ---" % round(time() - start_time, 1))
-            
-            s3 = client('s3', aws_access_key_id=key_id, aws_secret_access_key=secret_key)
-            s3.upload_file(log_file_name, destination_bucket_name, log_path)
-            s3.close()
-
-    except Exception as e:
-        logging.error(f"{e}")
         print("--- %s seconds ---" % round(time() - start_time, 1))
-        raise print(f"Erro!\n{e}")
-    
-    return 'Ok!'
+        
+        s3 = client('s3', aws_access_key_id=key_id, aws_secret_access_key=secret_key)
+        s3.upload_file(log_file_name, destination_bucket_name, log_path)
+        s3.close()
 
-# handler()
+except Exception as e:
+    logging.error(f"{e}")
+    print("--- %s seconds ---" % round(time() - start_time, 1))
+    raise print(f"Erro!\n{e}")
